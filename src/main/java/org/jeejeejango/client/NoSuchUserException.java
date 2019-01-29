@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author jeejeejango
  * @since 24/01/2019 1:48 PM
  */
-@ResponseStatus(value= HttpStatus.BAD_REQUEST, reason = "Team is invalid")
+@ResponseStatus(value= HttpStatus.BAD_REQUEST, reason = "User is invalid")
 public class NoSuchUserException extends RuntimeException {
 
     public NoSuchUserException() {

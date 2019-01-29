@@ -1,5 +1,6 @@
 package org.jeejeejango.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -32,6 +33,7 @@ public class Account implements Serializable {
     @NotNull
     private Long userId;
 
+    @JsonIgnore
     @Formula("user_id")
     private Long originalUserId;
 
