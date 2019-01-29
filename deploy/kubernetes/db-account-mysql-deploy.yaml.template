@@ -14,7 +14,7 @@ metadata:
   name: account-mysql
 subsets:
   - addresses:
-      - ip: ${PAYMENT_MYSQL_IP}
+      - ip: ${ACCOUNT_MYSQL_IP}
     ports:
       - port: 3306
 ---
