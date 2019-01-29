@@ -17,7 +17,7 @@ push-release:
         name: copy jar file to source root
         code: |
           mkdir $WERCKER_SOURCE_DIR/dist
-          cp $WERCKER_SOURCE_DIR/target/user-service.jar $WERCKER_SOURCE_DIR/dist/app.jar
+          cp $WERCKER_SOURCE_DIR/target/account-service.jar $WERCKER_SOURCE_DIR/dist/app.jar
     #- script:
     #    name: Setup monitoring agent
     #    code: |
@@ -32,7 +32,7 @@ push-release:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         registry: $DOCKER_REGISTRY
-        repository: $REPOSITORY/user-service
+        repository: $REPOSITORY/account-service
         #cmd: java -Djava.security.egd=file:/dev/./urandom -javaagent:/pipeline/source/dist/apmagent/lib/system/ApmAgentInstrumentation.jar -jar /pipeline/source/dist/app.jar
         cmd: java -Djava.security.egd=file:/dev/./urandom -jar /pipeline/source/dist/app.jar
 
@@ -64,7 +64,7 @@ scan-release:
       name: Pull image
       code: |
         docker login $DOCKER_REGISTRY --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
-        docker pull $DOCKER_REGISTRY/$REPOSITORY/user-service
+        docker pull $DOCKER_REGISTRY/$REPOSITORY/account-service
     - script:
       name: Scan an image
       code: |
@@ -77,7 +77,7 @@ scan-release:
           --report="report.json" \
           --threshold="High" \
           --clair="http://clair:6060" \
-          $DOCKER_REGISTRY/$REPOSITORY/user-service
+          $DOCKER_REGISTRY/$REPOSITORY/account-service
 
         OK=`grep -i "high cve-" report.json | wc -l`
         echo "status = " $OK
@@ -123,8 +123,8 @@ deploy-to-cluster:
     - script:
         name: "View Kubernetes config"
         code: |
-          cat $WERCKER_SOURCE_DIR/deploy/kubernetes/db-user-mysql-deploy.yaml
-          cat $WERCKER_SOURCE_DIR/deploy/kubernetes/app-user-service-deploy.yaml
+          cat $WERCKER_SOURCE_DIR/deploy/kubernetes/db-account-mysql-deploy.yaml
+          cat $WERCKER_SOURCE_DIR/deploy/kubernetes/app-account-service-deploy.yaml
 
     - kubectl:
         name: deploy to kubernetes
