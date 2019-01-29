@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service
+  labels:
+    app: account-service
+spec:
+  # type: LoadBalancer
+  ports:
+  - name: http
+    # LoadBalancer type
+    # port: 80
+    # targetPort: 8080
+    port: 8080
+  selector:
+    app: account-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service
+  labels:
+    app: account-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-service
+  template:
+    metadata:
+      labels:
+        app: account-service
+    spec:
+      containers:
+      - name: account-service
+        image: account-service:latest
+        imagePullPolicy: Never
+        ports:
+        - name: server
+          containerPort: 8080
+        env:
+        - name: spring_datasource_url
+          value: jdbc:mysql://account-mysql/ms_account?characterEncoding=UTF-8
+        - name: spring_datasource_username
+          valueFrom:
+            secretKeyRef:
+              name: account-mysql-secret
+              key: MYSQL_USER
+        - name: spring_datasource_password
+          valueFrom:
+            secretKeyRef:
+              name: account-mysql-secret
+              key: MYSQL_PASSWORD
+        - name: client_user_host
+          value: user-service
+        - name: client_user_port
+          value: 3306

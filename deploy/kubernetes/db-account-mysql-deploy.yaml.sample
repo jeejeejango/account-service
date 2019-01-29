@@ -1,0 +1,30 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: account-mysql
+spec:
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: account-mysql
+subsets:
+  - addresses:
+      - ip: 127.0.0.1
+    ports:
+      - port: 3306
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: account-mysql-secret
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: cGFzc3dvcmQx
+  MYSQL_DATABASE: bXNfdXNlcg==
+  MYSQL_USER: dGVzdHVzZXI=
+  MYSQL_PASSWORD: cGFzc3dvcmQy
