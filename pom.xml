@@ -175,7 +175,7 @@
     </profiles>
 
     <build>
-        <finalName>user-service</finalName>
+        <finalName>account-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -210,7 +210,7 @@
                     </diffChangeLogFile>
                     <outputChangeLogFile>src/main/resources/config/liquibase/changelog-master.xml</outputChangeLogFile>
                     <driver>org.h2.Driver</driver>
-                    <url>jdbc:h2:file:./target/h2/ms_user</url>
+                    <url>jdbc:h2:file:./target/h2/ms_account</url>
                     <username>sa</username>
                     <password>sa</password>
                     <referenceUrl>
