@@ -61,4 +61,8 @@ client:
     protocol: http
     host: localhost
     port: 8091
-    endpoint: /api/v1/users
+    endpoint: /user/api/v1/users
+
+server:
+  servlet:
+    context-path: /account

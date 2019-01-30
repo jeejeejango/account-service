@@ -26,10 +26,12 @@ spec:
   selector:
     matchLabels:
       app: account-service
+      version: v1
   template:
     metadata:
       labels:
         app: account-service
+        version: v1
     spec:
       containers:
       - name: account-service
@@ -56,6 +58,6 @@ spec:
         - name: client_user_host
           value: user-service
         - name: client_user_port
-          value: "\$(USER_SERVICE_SERVICE_PORT)"
+          value: "8080"
       imagePullSecrets:
       - name: ${OKE_SECRET}
